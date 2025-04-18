@@ -1,1 +1,60 @@
 @import "tailwindcss";
+
+@theme {
+    --color-electric-indigo-140: #471C9B;
+    --color-electric-indigo-120: #5623BE;
+    --color-electric-indigo-110: #5E26CF;
+    --color-electric-indigo-100: #652DD8;
+    --color-electric-indigo-90: #7541DC;
+    --color-electric-indigo-80: #8253DF;
+    --color-electric-indigo-60: #9B75E6;
+    --color-electric-indigo-40: #B498EC;
+    --color-electric-indigo-20: #CDBAF2;
+    --color-electric-indigo-10: #D9CBF6;
+    --color-electric-indigo-5: #F2EEFC;
+
+    --color-grayscale-140: #000000;
+    --color-grayscale-120: #090909;
+    --color-grayscale-100: #1D1D1D;
+    --color-grayscale-80: #6F6F6F;
+    --color-grayscale-60: #999999;
+    --color-grayscale-50: #BFBFBF;
+    --color-grayscale-40: #CCCCCC;
+    --color-grayscale-20: #DBDBDB;
+    --color-grayscale-15: #EBEBEB;
+    --color-grayscale-10: #F7F7F7;
+    --color-grayscale-5: #FCFCFC;
+    --color-grayscale-0: #FFFFFF;
+
+    --color-destructive-160: #620008;
+    --color-destructive-140: #99000D;
+    --color-destructive-120: #C70414;
+    --color-destructive-100: #E30B1D;
+    --color-destructive-80: #F63E4D;
+    --color-destructive-60: #FF818C;
+    --color-destructive-40: #FFC1C6;
+
+    --color-electric-indigo-opacity-80: rgba(129, 82, 222, 0.8);
+    --color-electric-indigo-opacity-64: rgba(129, 82, 222, 0.64);
+    --color-electric-indigo-opacity-40: rgba(129, 82, 222, 0.4);
+    --color-electric-indigo-opacity-24: rgba(129, 82, 222, 0.24);
+    --color-electric-indigo-opacity-16: rgba(129, 82, 222, 0.16);
+    --color-electric-indigo-opacity-8: rgba(129, 82, 222, 0.08);
+    --color-electric-indigo-opacity-4: rgba(129, 82, 222, 0.04);
+
+    --color-grayscale-opacity-80: rgba(28, 28, 28, 0.8);
+    --color-grayscale-opacity-64: rgba(28, 28, 28, 0.64);
+    --color-grayscale-opacity-40: rgba(28, 28, 28, 0.4);
+    --color-grayscale-opacity-24: rgba(28, 28, 28, 0.24);
+    --color-grayscale-opacity-16: rgba(28, 28, 28, 0.16);
+    --color-grayscale-opacity-8: rgba(28, 28, 28, 0.08);
+    --color-grayscale-opacity-4: rgba(28, 28, 28, 0.04);
+
+    --color-destructive-opacity-80: rgba(227, 11, 29, 0.8);
+    --color-destructive-opacity-64: rgba(227, 11, 29, 0.64);
+    --color-destructive-opacity-40: rgba(227, 11, 29, 0.4);
+    --color-destructive-opacity-24: rgba(227, 11, 29, 0.24);
+    --color-destructive-opacity-16: rgba(227, 11, 29, 0.16);
+    --color-destructive-opacity-8: rgba(227, 11, 29, 0.08);
+    --color-destructive-opacity-4: rgba(227, 11, 29, 0.04);
+}

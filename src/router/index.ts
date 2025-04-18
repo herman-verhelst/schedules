@@ -1,16 +1,16 @@
 import {createRouter, createWebHistory} from 'vue-router'
-import Welcome from "@/views/Welcome.vue";
+import Components from "../views/Components.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
             path: '/',
-            component: Welcome
+            component: Components
         },
         {
-            path: '/welcome',
-            component: Welcome
+            path: '/components',
+            component: Components
         }
     ]
 });
