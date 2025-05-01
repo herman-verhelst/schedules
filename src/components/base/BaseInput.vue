@@ -22,6 +22,10 @@ defineProps({
     type: String,
     default: 'text',
     validator: (value: string, props): boolean => ['text', 'number', 'time'].includes(value)
+  },
+  isHorizontal: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -29,9 +33,9 @@ const model = defineModel();
 </script>
 
 <template>
-  <div class="flex-col flex gap-2">
-    <div class="flex flex-col gap-1">
-      <label class="text-base" v-if="label" :for="id">{{ label }}</label>
+  <div class="flex gap-2" :class="{'flex-col': !isHorizontal}">
+    <div class="flex flex-col gap-1" :class="{'w-50': isHorizontal}">
+      <label class="text-base" :class="{'text-grayscale-80': isHorizontal}" v-if="label" :for="id">{{ label }}</label>
       <p v-if="description" class="text-sm text-grayscale-80">{{ description }}</p>
     </div>
     <input

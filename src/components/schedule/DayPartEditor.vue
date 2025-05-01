@@ -47,8 +47,8 @@ watch(endTime, (val) => {
     <div class="flex flex-col gap-6">
       <BaseTitle size="h4" grey>Eigenschappen</BaseTitle>
       <div class="flex-col flex gap-2">
-        <BaseInput type="time" label="Startmoment" v-model="startTime"></BaseInput>
-        <BaseInput type="time" label="Eindmoment" v-model="endTime"></BaseInput>
+        <BaseInput is-horizontal type="time" label="Startmoment" v-model="startTime"></BaseInput>
+        <BaseInput is-horizontal type="time" label="Eindmoment" v-model="endTime"></BaseInput>
       </div>
     </div>
 

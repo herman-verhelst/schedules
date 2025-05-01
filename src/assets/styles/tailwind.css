@@ -82,17 +82,17 @@
     --text-xl--font-weight: 700;
     --text-xl--line-height: 16px;
 
-    --text-2xl: 24px;
+    --text-2xl: 20px;
     --text-2xl--font-weight: 700;
     --text-2xl--line-height: 24px;
 
-    --text-3xl: 32px;
+    --text-3xl: 24px;
     --text-3xl--font-weight: 700;
-    --text-3xl--line-height: 32px;
+    --text-3xl--line-height: 24px;
 
-    --text-4xl: 48px;
+    --text-4xl: 32px;
     --text-4xl--font-weight: 700;
-    --text-4xl--line-height: 48px;
+    --text-4xl--line-height: 32px;
 
     /* Shadow */
     --shadow-md: 0px 2px 4px -1px rgba(0, 0, 0, 0.04), 0px 1px 1px 0px rgba(0, 0, 0, 0.04);
