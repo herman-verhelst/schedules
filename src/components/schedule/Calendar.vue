@@ -7,6 +7,7 @@ import {useDebounce} from "@/composables/useDebounce";
 import {computed, onMounted} from "vue";
 import {differenceInMinutes} from "date-fns";
 import {DayPart} from "@/models/dayPart.interface";
+import {IconPlus} from "@tabler/icons-vue";
 
 const scheduleStore = useScheduleStore();
 const {schedule} = storeToRefs(scheduleStore)
@@ -81,8 +82,11 @@ onMounted(() => {
 
       <div class="flex flex-col items-center gap-16 absolute w-full min-h-full h-fit h pl-17 pr-1">
         <BaseButton
+            icon
             :style="`margin-top: ${getTopMarginOfButton()}px`"
-            @click="addDayPart(true)">Add</BaseButton>
+            @click="addDayPart(true)">
+          <IconPlus size="14"></IconPlus>
+        </BaseButton>
         <div class="flex flex-col items-center w-full">
           <CalendarElement
               v-for="(dayPart, index) in schedule.dayParts"
@@ -90,7 +94,9 @@ onMounted(() => {
               :style="`height: ${getHeightOfSchedule(dayPart)}px; margin-top: ${getTopMarginOfSchedule(dayPart, index)}px`"
               :day-part="dayPart"></CalendarElement>
         </div>
-        <BaseButton @click="addDayPart(false)">Add</BaseButton>
+        <BaseButton v-if="schedule.dayParts?.length > 0" @click="addDayPart(false)" icon>
+          <IconPlus size="14"></IconPlus>
+        </BaseButton>
       </div>
     </div>
 

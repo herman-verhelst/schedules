@@ -5,14 +5,6 @@ defineProps(
       text: {
         type: String,
       },
-      icon: {
-        type: String,
-      },
-      iconPosition: {
-        type: String,
-        default: 'none',
-        validator: (value: string, props) => ['none', 'leading', 'trailing', 'only'].includes(value)
-      },
       variant: {
         type: String,
         default: 'default',
@@ -36,18 +28,20 @@ defineProps(
       loading: {
         type: Boolean,
         default: false,
+      },
+      icon: {
+        type: Boolean,
+        default: false,
       }
     }
 )
 </script>
 
 <template>
-  <button :disabled="disabled" :class="`button--size-${size} button--variant-${variant} button--icon-${iconPosition}`"
+  <button :disabled="disabled"
+          :class="`button--size-${size} button--variant-${variant} ${icon ? 'button--icon' : ''}`"
           class="button text-nowrap">
-    <span v-if="iconPosition === 'leading' || iconPosition === 'only'"
-          class="material-symbols-outlined">{{ icon }}</span>
     <slot></slot>
-    <span v-if="iconPosition === 'trailing'" class="material-symbols-outlined">{{ icon }}</span>
   </button>
 </template>
 
@@ -133,6 +127,11 @@ defineProps(
       padding: 0 .75rem;
       gap: .5rem;
       font-size: 14px;
+
+      &.button--icon {
+        width: 2rem;
+        padding: 0;
+      }
     }
 
     &-s {
@@ -141,6 +140,10 @@ defineProps(
       gap: .375rem;
       font-size: 12px;
 
+      &.button--icon {
+        width: 1.75rem;
+        padding: 0;
+      }
     }
 
     &-xs {
@@ -148,6 +151,11 @@ defineProps(
       padding: 0 .375rem;
       gap: .25rem;
       font-size: 12px;
+
+      &.button--icon {
+        width: 1.5rem;
+        padding: 0;
+      }
     }
   }
 

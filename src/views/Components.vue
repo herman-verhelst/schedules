@@ -4,10 +4,11 @@ import BaseText from "@/components/base/BaseText.vue";
 import BaseTitle from "@/components/base/BaseTitle.vue";
 import BaseInput from "@/components/base/BaseInput.vue";
 
+import {IconDownload, IconX} from "@tabler/icons-vue";
 </script>
 
 <template>
-  <main class="p-2">
+  <main class="h-full overflow-auto">
     <BaseTitle size="h1" class="mb-8">Components</BaseTitle>
     <div class="mb-16">
       <BaseTitle size="h2" class="mb-4">Buttons</BaseTitle>
@@ -25,6 +26,28 @@ import BaseInput from "@/components/base/BaseInput.vue";
         <BaseButton size="m">Medium</BaseButton>
         <BaseButton size="s">Small</BaseButton>
         <BaseButton size="xs">X Small</BaseButton>
+      </div>
+
+      <div class="flex flex-col gap-2 mb-4">
+        <BaseTitle size="h3" class="mb-2">Icons</BaseTitle>
+
+        <BaseButton>None</BaseButton>
+        <BaseButton>
+          <IconDownload :size="14"></IconDownload>
+          Front
+        </BaseButton>
+        <BaseButton>Back
+          <IconX :size="14"></IconX>
+        </BaseButton>
+        <BaseButton>
+          <IconDownload :size="14"></IconDownload>
+          Both
+          <IconX :size="14"></IconX>
+        </BaseButton>
+
+        <BaseButton icon>
+          <IconX :size="14"></IconX>
+        </BaseButton>
       </div>
 
     </div>

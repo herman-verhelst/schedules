@@ -34,7 +34,6 @@ export const useScheduleStore = defineStore('schedule', {
                 endTime.setTime(new Date(firstDayPart.startTime).getTime())
             } else {
                 const lastDayPart = this.schedule.dayParts[this.schedule.dayParts.length - 1];
-                console.log(lastDayPart.endTime)
                 startTime.setTime(new Date(lastDayPart.endTime).getTime())
                 endTime.setTime(addHours(new Date(lastDayPart.endTime).getTime(), 1))
             }

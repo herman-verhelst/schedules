@@ -4,6 +4,7 @@ import BaseTitle from "@/components/base/BaseTitle.vue";
 import BaseText from "@/components/base/BaseText.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 import {useScheduleStore} from "@/stores/schedule.store";
+import {IconPlus} from "@tabler/icons-vue";
 
 const scheduleStore = useScheduleStore();
 
@@ -16,7 +17,10 @@ function addDayPart(): void {
 <div class="px-24 flex flex-col justify-center h-full">
   <BaseTitle size="h4" class="mb-2">Dagdelen</BaseTitle>
   <BaseText grey class="mb-6">Voeg een eerste dagdeel toe om een nieuw dagschema te maken.</BaseText>
-  <BaseButton @click="addDayPart" variant="primary">Maak een nieuw dagdeel</BaseButton>
+  <BaseButton @click="addDayPart" variant="primary">
+    <IconPlus size="14px"></IconPlus>
+    Maak een nieuw dagdeel
+  </BaseButton>
 </div>
 </template>
 
