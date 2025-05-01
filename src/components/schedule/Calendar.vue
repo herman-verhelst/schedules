@@ -5,6 +5,9 @@ import CalendarElement from "@/components/schedule/CalendarElement.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 import {useDebounce} from "@/composables/useDebounce";
 import {computed} from "vue";
+import {Schedule} from "@/models/schedule.interface";
+import {differenceInMinutes} from "date-fns";
+import {DayPart} from "@/models/dayPart.interface";
 
 const scheduleStore = useScheduleStore();
 const {schedule} = storeToRefs(scheduleStore)
@@ -20,31 +23,70 @@ const title = computed({
   }
 });
 
-const { debounce } = useDebounce(500);
+const {debounce} = useDebounce(500);
 const updateTitle = debounce(() => {
   scheduleStore.updateTitle(title.value)
 });
 
+const times = [];
+for (let hour = 0; hour < 24; hour++) {
+  const formattedHour = hour.toString().padStart(2, '0');
+
+  times.push(`${formattedHour}:00`);
+  times.push(`${formattedHour}:30`);
+}
+
+function getHeightOfSchedule(dayPart: DayPart): number {
+  return (differenceInMinutes(dayPart.endTime, dayPart.startTime) * 32 / 30) - 2;
+}
+
+function getTopMarginOfSchedule(dayPart: DayPart, index: number): number {
+  if (!index) return 0;
+  return (differenceInMinutes(dayPart.startTime, schedule.value.dayParts[index - 1].endTime) * 32 / 30) + 1;
+}
+
+function getTopMarginOfButton(): number {
+  if (!schedule.value.dayParts[0]) return 8;
+  return (differenceInMinutes(schedule.value.dayParts[0].startTime, new Date().setHours(0, 0, 0)) * 32 / 30) - 78;
+}
+
 </script>
 
 <template>
-  <div class="my-8 flex flex-col gap-8">
+  <div class="my-8 flex flex-col gap-8 w-full">
     <input type="text" placeholder="Geef je schema een titel..."
            v-model="title"
            @input="updateTitle"
            class="text-2xl outline-none text-grayscale-100 placeholder:text-grayscale-80"/>
 
-    <div>
-      
+    <div class="relative h-full w-full overflow-auto no-scrollbar">
+      <div class="h-full w-full absolute left-0 top-0 h-full gap-8 flex">
+        <div class="w-8">
+          <p v-for="n in 48" class="w-full h-8 text-xs text-grayscale-80 tabular-nums flex items-center">
+            {{ times[n - 1] }}</p>
+        </div>
+        <div class="w-full">
+          <div v-for="n in 48" class="w-full h-8 flex items-center">
+            <div class="w-full h-[1px] bg-grayscale-20 my-4"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col items-center gap-16 absolute w-full min-h-full h-fit h pl-17 pr-1">
+        <BaseButton
+            :style="`margin-top: ${getTopMarginOfButton()}px`"
+            @click="addDayPart(true)">Add</BaseButton>
+        <div class="flex flex-col items-center w-full">
+          <CalendarElement
+              v-for="(dayPart, index) in schedule.dayParts"
+              class="my-[1px]"
+              :style="`height: ${getHeightOfSchedule(dayPart)}px; margin-top: ${getTopMarginOfSchedule(dayPart, index)}px`"
+              :day-part="dayPart"></CalendarElement>
+        </div>
+        <BaseButton @click="addDayPart(false)">Add</BaseButton>
+      </div>
     </div>
 
-    <div class="flex flex-col items-center gap-16">
-      <BaseButton @click="addDayPart(true)">Add</BaseButton>
-      <div class="flex flex-col items-center gap-2 w-full">
-        <CalendarElement v-for="dayPart in schedule.dayParts" :day-part="dayPart"></CalendarElement>
-      </div>
-      <BaseButton @click="addDayPart(false)">Add</BaseButton>
-    </div>
   </div>
 
 </template>

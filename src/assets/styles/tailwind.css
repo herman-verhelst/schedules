@@ -62,6 +62,10 @@
     /* Font variables */
     --font-sans: "Inter", sans-serif;
 
+    --text-xs: 10px;
+    --text-xs--font-weight: 400;
+    --text-xs--line-height: 10px;
+
     --text-sm: 12px;
     --text-sm--font-weight: 400;
     --text-sm--line-height: 20px;

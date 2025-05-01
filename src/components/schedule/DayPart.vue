@@ -12,8 +12,10 @@ const selectedDayPart = computed(() => schedule.value.dayParts.find((dayPart) =>
 </script>
 
 <template>
-  <DayPartsEmpty v-if="!selectedDayPart"></DayPartsEmpty>
-  <DayPartEditor v-else :day-part="selectedDayPart"></DayPartEditor>
+  <div class="w-full">
+    <DayPartsEmpty v-if="!selectedDayPart"></DayPartsEmpty>
+    <DayPartEditor v-else :day-part="selectedDayPart"></DayPartEditor>
+  </div>
 </template>
 
 <style scoped lang="scss">

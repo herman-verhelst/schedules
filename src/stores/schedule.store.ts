@@ -30,12 +30,13 @@ export const useScheduleStore = defineStore('schedule', {
                 endTime.setHours(9, 0, 0);
             } else if (inFront) {
                 const firstDayPart = this.schedule.dayParts[0];
-                startTime.setTime(addHours(firstDayPart.startTime.getTime(), -1))
-                endTime.setTime(firstDayPart.startTime.getTime())
+                startTime.setTime(addHours(new Date(firstDayPart.startTime).getTime(), -1))
+                endTime.setTime(new Date(firstDayPart.startTime).getTime())
             } else {
                 const lastDayPart = this.schedule.dayParts[this.schedule.dayParts.length - 1];
-                startTime.setTime(lastDayPart.endTime.getTime())
-                endTime.setTime(addHours(lastDayPart.endTime.getTime(), 1))
+                console.log(lastDayPart.endTime)
+                startTime.setTime(new Date(lastDayPart.endTime).getTime())
+                endTime.setTime(addHours(new Date(lastDayPart.endTime).getTime(), 1))
             }
 
             // Add new day part
