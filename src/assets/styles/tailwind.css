@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+    /* Color variables */
     --color-electric-indigo-140: #471C9B;
     --color-electric-indigo-120: #5623BE;
     --color-electric-indigo-110: #5E26CF;
@@ -57,4 +58,38 @@
     --color-destructive-opacity-16: rgba(227, 11, 29, 0.16);
     --color-destructive-opacity-8: rgba(227, 11, 29, 0.08);
     --color-destructive-opacity-4: rgba(227, 11, 29, 0.04);
+
+    /* Font variables */
+    --font-sans: "Inter", sans-serif;
+
+    --text-sm: 12px;
+    --text-sm--font-weight: 400;
+    --text-sm--line-height: 20px;
+
+    --text-base: 14px;
+    --text-base--font-weight: 400;
+    --text-base--line-height: 24px;
+
+    --text-lg: 16px;
+    --text-lg--font-weight: 400;
+    --text-lg--line-height: 24px;
+
+    --text-xl: 16px;
+    --text-xl--font-weight: 700;
+    --text-xl--line-height: 16px;
+
+    --text-2xl: 24px;
+    --text-2xl--font-weight: 700;
+    --text-2xl--line-height: 24px;
+
+    --text-3xl: 32px;
+    --text-3xl--font-weight: 700;
+    --text-3xl--line-height: 32px;
+
+    --text-4xl: 48px;
+    --text-4xl--font-weight: 700;
+    --text-4xl--line-height: 48px;
+
+    /* Shadow */
+    --shadow-md: 0px 2px 4px -1px rgba(0, 0, 0, 0.04), 0px 1px 1px 0px rgba(0, 0, 0, 0.04);
 }

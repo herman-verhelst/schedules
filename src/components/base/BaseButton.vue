@@ -46,7 +46,7 @@ defineProps(
           class="button text-nowrap">
     <span v-if="iconPosition === 'leading' || iconPosition === 'only'"
           class="material-symbols-outlined">{{ icon }}</span>
-    <template v-if="text">{{ text }}</template>
+    <slot></slot>
     <span v-if="iconPosition === 'trailing'" class="material-symbols-outlined">{{ icon }}</span>
   </button>
 </template>

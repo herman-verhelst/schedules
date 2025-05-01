@@ -1,23 +1,27 @@
-<script lang="ts" setup>
-import {v4 as uuid} from 'uuid';
+<script setup lang="ts">
+import {v4 as uuid} from 'uuid'
 
 defineProps({
   label: {
+    type: String,
+  },
+  description: {
+    type: String,
+  },
+  error: {
+    type: String,
+  },
+  placeholder: {
     type: String
   },
   id: {
     type: String,
     default: uuid()
   },
-  placeholder: {
-    type: String,
-  },
-  icon: {
-    type: String,
-  },
   type: {
     type: String,
-    default: 'text'
+    default: 'text',
+    validator: (value: string, props): boolean => ['text', 'number', 'time'].includes(value)
   }
 })
 
@@ -25,31 +29,22 @@ const model = defineModel();
 </script>
 
 <template>
-  <label :for="id" class="flex flex-col gap-2 relative">
-    {{ label }}
-    <span v-if="icon" class="material-symbols-outlined absolute top-1/2 -translate-y-1/2 left-3 text-neutral-500">
-      {{ icon }}
-    </span>
-    <input :id="id"
-           v-model="model"
-           :placeholder="placeholder"
-           :class="{'pl-8': icon}"
-           class="input h-10 border border-wb-primary-border inline-flex content-center px-2 rounded placeholder-neutral-500"
-           :type="type">
-  </label>
+  <div class="flex-col flex gap-2">
+    <div class="flex flex-col gap-1">
+      <label class="text-base" v-if="label" :for="id">{{ label }}</label>
+      <p v-if="description" class="text-sm text-grayscale-80">{{ description }}</p>
+    </div>
+    <input
+        v-model="model"
+        class="text-base border px-2 h-7 border-grayscale-20 rounded-sm w-full hover:border-grayscale-50 focus:border-electric-indigo-100 focus:ring focus:ring-2 focus:ring-electric-indigo-opacity-40 outline-none"
+        :type="type"
+        :placeholder="placeholder"
+        :id="id">
+    <p v-if="error" class="text-sm text-grayscale-80">{{ error }}</p>
+  </div>
+
 </template>
 
-<style lang="scss" scoped>
-.input {
-  transition: 100ms all;
+<style scoped lang="scss">
 
-  &:hover {
-    border-color: theme('colors.neutral.400');
-  }
-
-  &:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 2px theme('colors.neutral.200');
-  }
-}
 </style>
