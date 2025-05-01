@@ -13,8 +13,6 @@ const props = defineProps({
 
 const scheduleStore = useScheduleStore();
 
-console.log(props.dayPart.selected)
-
 function setAsActive(): void {
   scheduleStore.setActiveDayPart(props.dayPart.id)
 }

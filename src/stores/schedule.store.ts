@@ -50,7 +50,10 @@ export const useScheduleStore = defineStore('schedule', {
             // Sort day parts
             this.schedule.dayParts.sort((a, b) => compareAsc(a.startTime, b.startTime));
         },
-        updateDayPart(): void {
+        updateTime(dayPartId: string, time: Date, moment: 'start' | 'end'): void {
+            const dayPart = this.schedule.dayParts.find((dayPart: DayPart) => dayPart.id === dayPartId)
+            if (moment === 'start') dayPart.startTime = time;
+            else dayPart.endTime = time;
         },
         updateTitle(title: string): void {
             this.schedule.title = title;

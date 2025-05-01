@@ -37,6 +37,7 @@ const model = defineModel();
     <input
         v-model="model"
         class="text-base border px-2 h-7 border-grayscale-20 rounded-sm w-full hover:border-grayscale-50 focus:border-electric-indigo-100 focus:ring focus:ring-2 focus:ring-electric-indigo-opacity-40 outline-none"
+        :class="{'tabular-nums': type === 'time' || 'number'}"
         :type="type"
         :placeholder="placeholder"
         :id="id">
