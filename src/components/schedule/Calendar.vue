@@ -4,13 +4,15 @@ import {storeToRefs} from "pinia";
 import CalendarElement from "@/components/schedule/CalendarElement.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 import {useDebounce} from "@/composables/useDebounce";
-import {computed} from "vue";
-import {Schedule} from "@/models/schedule.interface";
+import {computed, onMounted} from "vue";
 import {differenceInMinutes} from "date-fns";
 import {DayPart} from "@/models/dayPart.interface";
 
 const scheduleStore = useScheduleStore();
 const {schedule} = storeToRefs(scheduleStore)
+
+// Height for 30 minutes
+const dayPartHeight = 64;
 
 function addDayPart(inFront: boolean): void {
   scheduleStore.addDayPart(inFront);
@@ -37,19 +39,24 @@ for (let hour = 0; hour < 24; hour++) {
 }
 
 function getHeightOfSchedule(dayPart: DayPart): number {
-  return (differenceInMinutes(dayPart.endTime, dayPart.startTime) * 32 / 30) - 2;
+  return (differenceInMinutes(dayPart.endTime, dayPart.startTime) * dayPartHeight / 30) - 2;
 }
 
 function getTopMarginOfSchedule(dayPart: DayPart, index: number): number {
   if (!index) return 0;
-  return (differenceInMinutes(dayPart.startTime, schedule.value.dayParts[index - 1].endTime) * 32 / 30) + 1;
+  return (differenceInMinutes(dayPart.startTime, schedule.value.dayParts[index - 1].endTime) * dayPartHeight / 30) + 1;
 }
 
 function getTopMarginOfButton(): number {
-  if (!schedule.value.dayParts[0]) return 8;
-  return (differenceInMinutes(schedule.value.dayParts[0].startTime, new Date().setHours(0, 0, 0)) * 32 / 30) - 78;
+  if (!schedule.value.dayParts[0]) return dayPartHeight * 16 - 16;
+  return (differenceInMinutes(schedule.value.dayParts[0].startTime, new Date().setHours(0, 0, 0)) * dayPartHeight / 30) - 63;
 }
 
+onMounted(() => {
+  const element = document.getElementById('time-16');
+  element.scrollIntoView();
+
+})
 </script>
 
 <template>
@@ -60,13 +67,13 @@ function getTopMarginOfButton(): number {
            class="text-2xl outline-none text-grayscale-100 placeholder:text-grayscale-80"/>
 
     <div class="relative h-full w-full overflow-auto no-scrollbar">
-      <div class="h-full w-full absolute left-0 top-0 h-full gap-8 flex">
+      <div class="h-full w-full absolute left-0 top-0 h-full flex" :style="`gap: ${dayPartHeight / 2}px`">
         <div class="w-8">
-          <p v-for="n in 48" class="w-full h-8 text-xs text-grayscale-80 tabular-nums flex items-center">
+          <p :id="`time-${n}`" v-for="n in 48" class="w-full text-xs text-grayscale-80 tabular-nums flex items-center" :style="`height: ${dayPartHeight}px`">
             {{ times[n - 1] }}</p>
         </div>
         <div class="w-full">
-          <div v-for="n in 48" class="w-full h-8 flex items-center">
+          <div v-for="n in 48" class="w-full flex items-center" :style="`height: ${dayPartHeight}px`">
             <div class="w-full h-[1px] bg-grayscale-20 my-4"></div>
           </div>
         </div>
