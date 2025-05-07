@@ -7,6 +7,13 @@ import {format} from "date-fns";
 import {useScheduleStore} from "@/stores/schedule.store";
 import BaseButton from "@/components/base/BaseButton.vue";
 import {IconPlus, IconTrash} from "@tabler/icons-vue";
+import BaseTable from "@/components/base/table/BaseTable.vue";
+import BaseTableHeader from "@/components/base/table/BaseTableHeader.vue";
+import BaseTableRow from "@/components/base/table/BaseTableRow.vue";
+import BaseTableHead from "@/components/base/table/BaseTableHead.vue";
+import BaseTableBody from "@/components/base/table/BaseTableBody.vue";
+import BaseTableCell from "@/components/base/table/BaseTableCell.vue";
+import BaseSimpleInput from "@/components/base/BaseSimpleInput.vue";
 
 const props = defineProps({
   dayPart: {
@@ -46,6 +53,10 @@ watch(endTime, (val) => {
 function removeDayPart(): void {
   scheduleStore.removeDayPart(props.dayPart.id);
 }
+
+function addActivity(): void {
+  scheduleStore.addActivityToDayPart(props.dayPart.id);
+}
 </script>
 
 <template>
@@ -59,12 +70,34 @@ function removeDayPart(): void {
         </div>
       </div>
 
-      <div class="flex items-center w-full justify-between gap-6">
-        <BaseTitle size="h4" grey>Activiteiten</BaseTitle>
-        <BaseButton icon>
-          <IconPlus size="14"></IconPlus>
-        </BaseButton>
+      <div class="flex flex-col gap-6">
+        <div class="flex items-center w-full justify-between ">
+          <BaseTitle size="h4" grey>Activiteiten</BaseTitle>
+          <BaseButton @click="addActivity()" icon>
+            <IconPlus size="14"></IconPlus>
+          </BaseButton>
+        </div>
+
+        <BaseTable>
+          <BaseTableHeader>
+            <BaseTableRow>
+              <BaseTableHead>Beschrijving</BaseTableHead>
+              <BaseTableHead>Icoon</BaseTableHead>
+              <BaseTableHead>Type</BaseTableHead>
+            </BaseTableRow>
+          </BaseTableHeader>
+          <BaseTableBody>
+            <BaseTableRow v-for="activity of dayPart.activities">
+              <BaseTableCell>
+                <BaseSimpleInput></BaseSimpleInput>
+              </BaseTableCell>
+              <BaseTableCell>{{activity.icon}}</BaseTableCell>
+              <BaseTableCell>{{activity.icon}}</BaseTableCell>
+            </BaseTableRow>
+          </BaseTableBody>
+        </BaseTable>
       </div>
+
     </div>
 
     <BaseButton @click="removeDayPart" icon variant="subtle">

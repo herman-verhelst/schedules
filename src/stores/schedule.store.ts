@@ -70,6 +70,11 @@ export const useScheduleStore = defineStore('schedule', {
             this.schedule.dayParts.forEach((dayPart: DayPart) => {
                 dayPart.selected = dayPartId === dayPart.id;
             })
+        },
+        addActivityToDayPart(dayPartId: string): void{
+            this.schedule.dayParts
+                .find((dayPart) => dayPart.id === dayPartId)
+                .activities.push({id: uuid(), description: 'haha'})
         }
     }
 })
