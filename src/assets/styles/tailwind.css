@@ -78,15 +78,15 @@
     --text-lg--font-weight: 400;
     --text-lg--line-height: 24px;
 
-    --text-xl: 16px;
+    --text-xl: 14px;
     --text-xl--font-weight: 700;
     --text-xl--line-height: 16px;
 
-    --text-2xl: 20px;
+    --text-2xl: 16px;
     --text-2xl--font-weight: 700;
-    --text-2xl--line-height: 24px;
+    --text-2xl--line-height: 16px;
 
-    --text-3xl: 24px;
+    --text-3xl: 20px;
     --text-3xl--font-weight: 700;
     --text-3xl--line-height: 24px;
 

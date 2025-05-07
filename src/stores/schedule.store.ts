@@ -50,6 +50,14 @@ export const useScheduleStore = defineStore('schedule', {
             // Sort day parts
             this.schedule.dayParts.sort((a, b) => compareAsc(a.startTime, b.startTime));
         },
+        removeDayPart(dayPartId: string): void {
+            const index = this.schedule.dayParts.findIndex((dayPart) => dayPart.id === dayPartId)
+            this.schedule.dayParts.splice(index, 1);
+            const dayPartsLength = this.schedule.dayParts.length
+            if (dayPartsLength === 0) return;
+            if (dayPartsLength === index) this.schedule.dayParts[index - 1].selected = true
+            else this.schedule.dayParts[index].selected = true;
+        },
         updateTime(dayPartId: string, time: Date, moment: 'start' | 'end'): void {
             const dayPart = this.schedule.dayParts.find((dayPart: DayPart) => dayPart.id === dayPartId)
             if (moment === 'start') dayPart.startTime = time;

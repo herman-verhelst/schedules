@@ -49,8 +49,8 @@ function getTopMarginOfSchedule(dayPart: DayPart, index: number): number {
 }
 
 function getTopMarginOfButton(): number {
-  if (!schedule.value.dayParts[0]) return dayPartHeight * 16 - 16;
-  return (differenceInMinutes(schedule.value.dayParts[0].startTime, new Date().setHours(0, 0, 0)) * dayPartHeight / 30) - 63;
+  if (schedule.value.dayParts.length === 0) return dayPartHeight * 16 - 16;
+  return (Math.round(differenceInMinutes(schedule.value.dayParts[0].startTime, new Date().setHours(0, 0, 0, 0)) * dayPartHeight / 30)) - 63;
 }
 
 onMounted(() => {
@@ -68,7 +68,7 @@ onMounted(() => {
           placeholder="Geef je schema een titel..."
           v-model="title"
           @input="updateTitle"
-          class="text-3xl outline-none text-grayscale-100 placeholder:text-grayscale-80"/>
+          class="text-3xl outline-none text-grayscale-100 placeholder:text-grayscale-80 w-full"/>
     </div>
 
     <div class="h-full w-full border-t border-grayscale-20 px-8">

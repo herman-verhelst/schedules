@@ -51,7 +51,7 @@ defineProps(
   justify-content: center;
   align-items: center;
   line-height: 160%;
-  transition: 200ms all;
+  transition: 200ms all, 0s margin-top;
   width: fit-content;
   cursor: pointer;
   border-radius: .25rem;

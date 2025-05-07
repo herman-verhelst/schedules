@@ -5,6 +5,8 @@ import BaseInput from "@/components/base/BaseInput.vue";
 import BaseTitle from "@/components/base/BaseTitle.vue";
 import {format} from "date-fns";
 import {useScheduleStore} from "@/stores/schedule.store";
+import BaseButton from "@/components/base/BaseButton.vue";
+import {IconPlus, IconTrash} from "@tabler/icons-vue";
 
 const props = defineProps({
   dayPart: {
@@ -40,21 +42,34 @@ watch(endTime, (val) => {
       'end'
   );
 });
+
+function removeDayPart(): void {
+  scheduleStore.removeDayPart(props.dayPart.id);
+}
 </script>
 
 <template>
-  <div class="flex flex-col gap-16 my-8">
-    <div class="flex flex-col gap-6">
-      <BaseTitle size="h4" grey>Eigenschappen</BaseTitle>
-      <div class="flex-col flex gap-2">
-        <BaseInput is-horizontal type="time" label="Startmoment" v-model="startTime"></BaseInput>
-        <BaseInput is-horizontal type="time" label="Eindmoment" v-model="endTime"></BaseInput>
+  <div class="flex flex-col justify-between items-end py-8 h-full">
+    <div class="flex flex-col gap-16 w-full">
+      <div class="flex flex-col gap-6">
+        <BaseTitle size="h4" grey>Eigenschappen</BaseTitle>
+        <div class="flex-col flex gap-2">
+          <BaseInput is-horizontal type="time" label="Startmoment" v-model="startTime"></BaseInput>
+          <BaseInput is-horizontal type="time" label="Eindmoment" v-model="endTime"></BaseInput>
+        </div>
+      </div>
+
+      <div class="flex items-center w-full justify-between gap-6">
+        <BaseTitle size="h4" grey>Activiteiten</BaseTitle>
+        <BaseButton icon>
+          <IconPlus size="14"></IconPlus>
+        </BaseButton>
       </div>
     </div>
 
-    <div class="flex flex-col gap-6">
-      <BaseTitle size="h4" grey>Activiteiten</BaseTitle>
-    </div>
+    <BaseButton @click="removeDayPart" icon variant="subtle">
+      <IconTrash size="14"></IconTrash>
+    </BaseButton>
   </div>
 
 </template>
