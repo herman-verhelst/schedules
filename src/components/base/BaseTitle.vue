@@ -17,7 +17,6 @@ const attrs = useAttrs()
 
 const tag = computed(() => props.size || 'h4')
 
-
 const textClasses = computed(() => ({
   color: props.grey ? 'text-grayscale-80' : 'text-grayscale-100',
 }))

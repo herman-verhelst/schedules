@@ -14,6 +14,8 @@ import BaseTableHead from "@/components/base/table/BaseTableHead.vue";
 import BaseTableBody from "@/components/base/table/BaseTableBody.vue";
 import BaseTableCell from "@/components/base/table/BaseTableCell.vue";
 import BaseSimpleInput from "@/components/base/BaseSimpleInput.vue";
+import IconSelector from "@/components/schedule/IconSelector.vue";
+import BaseIcon from "@/components/base/icon/BaseIcon.vue";
 
 const props = defineProps({
   dayPart: {
@@ -30,7 +32,7 @@ const endTime = ref('');
 watch(() => props.dayPart, (newDayPart) => {
   startTime.value = format(newDayPart.startTime, 'HH:mm');
   endTime.value = format(newDayPart.endTime, 'HH:mm');
-}, { immediate: true });
+}, {immediate: true});
 
 watch(startTime, (val) => {
   const [hours, minutes] = val.split(':').map(Number);
@@ -91,8 +93,14 @@ function addActivity(): void {
               <BaseTableCell>
                 <BaseSimpleInput></BaseSimpleInput>
               </BaseTableCell>
-              <BaseTableCell>{{activity.icon}}</BaseTableCell>
-              <BaseTableCell>{{activity.icon}}</BaseTableCell>
+              <BaseTableCell>
+                <IconSelector
+                    :selected-icon="activity.icon"
+                    :day-part-id="dayPart.id"
+                    :activity-id="activity.id">
+                </IconSelector>
+              </BaseTableCell>
+              <BaseTableCell>{{ activity.icon }}</BaseTableCell>
             </BaseTableRow>
           </BaseTableBody>
         </BaseTable>

@@ -3,6 +3,7 @@ import {defineStore} from "pinia";
 import {v4 as uuid} from 'uuid'
 import {DayPart} from "@/models/dayPart.interface";
 import {addHours, compareAsc} from "date-fns";
+import {IconName} from "@/components/base/icon/types/name";
 
 interface ScheduleState {
     schedule: Schedule;
@@ -71,10 +72,17 @@ export const useScheduleStore = defineStore('schedule', {
                 dayPart.selected = dayPartId === dayPart.id;
             })
         },
-        addActivityToDayPart(dayPartId: string): void{
+        addActivityToDayPart(dayPartId: string): void {
             this.schedule.dayParts
                 .find((dayPart) => dayPart.id === dayPartId)
                 .activities.push({id: uuid(), description: 'haha'})
+        },
+        updateIconOfActivity(icon: IconName, activityId: string, dayPartId: string): void {
+            this.schedule.dayParts
+                .find((dayPart) => dayPart.id === dayPartId)
+                .activities
+                .find((activity) => activity.id === activityId)
+                .icon = icon;
         }
     }
 })
