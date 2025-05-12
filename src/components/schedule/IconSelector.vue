@@ -2,12 +2,12 @@
 
 import BaseButton from "@/components/base/BaseButton.vue";
 import IconList from "@/components/schedule/IconList.vue";
-import {ref} from "vue";
+import {ref, watch} from "vue";
 import BaseIcon from "@/components/base/icon/BaseIcon.vue";
 
 let iconListOpen = ref(false);
 
-defineProps({
+const props = defineProps({
   activityId: {
     type: String,
     required: true,
@@ -26,22 +26,33 @@ function toggleIconList(): void {
   iconListOpen.value = !iconListOpen.value;
 }
 
+
+function closeIconList(): void {
+  iconListOpen.value = false;
+}
+
+watch(() => props.selectedIcon, () => {
+  closeIconList();
+})
 </script>
 
 <template>
-  <BaseButton variant="subtle" :class="{'!text-grayscale-80': !selectedIcon}" @click="toggleIconList()">
-    <template v-if="selectedIcon">
-      <BaseIcon class="w-6 h-6" :name="selectedIcon"/>
-      {{ selectedIcon }}
-    </template>
-    <template v-else>
-      Selecteer icoon
-    </template>
-  </BaseButton>
+  <div v-click-outside="closeIconList">
+    <BaseButton variant="subtle" :class="{'!text-grayscale-80': !selectedIcon}" @click="toggleIconList()">
+      <template v-if="selectedIcon != 'empty'">
+        <BaseIcon class="w-6 h-6" :name="selectedIcon"/>
+        {{ selectedIcon }}
+      </template>
+      <template v-else>
+        Selecteer icoon
+      </template>
+    </BaseButton>
 
-  <div v-if="iconListOpen">
-    <IconList :activity-id="activityId" :day-part-id="dayPartId" :selected-icon="selectedIcon"></IconList>
+    <div v-if="iconListOpen">
+      <IconList :activity-id="activityId" :day-part-id="dayPartId" :selected-icon="selectedIcon"></IconList>
+    </div>
   </div>
+
 
 </template>
 

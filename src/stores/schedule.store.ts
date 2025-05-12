@@ -27,8 +27,8 @@ export const useScheduleStore = defineStore('schedule', {
             const startTime = new Date();
             const endTime = new Date();
             if (this.schedule.dayParts.length < 1) {
-                startTime.setHours(8, 0, 0);
-                endTime.setHours(9, 0, 0);
+                startTime.setHours(8, 0, 0, 0);
+                endTime.setHours(9, 0, 0, 0);
             } else if (inFront) {
                 const firstDayPart = this.schedule.dayParts[0];
                 startTime.setTime(addHours(new Date(firstDayPart.startTime).getTime(), -1))
@@ -44,7 +44,9 @@ export const useScheduleStore = defineStore('schedule', {
                 id: uuid(),
                 startTime: startTime,
                 endTime: endTime,
-                activities: [],
+                activities: [
+                    {id: uuid(), description: '', icon: 'empty'}
+                ],
                 selected: true,
             })
 
@@ -75,7 +77,7 @@ export const useScheduleStore = defineStore('schedule', {
         addActivityToDayPart(dayPartId: string): void {
             this.schedule.dayParts
                 .find((dayPart) => dayPart.id === dayPartId)
-                .activities.push({id: uuid(), description: 'haha'})
+                .activities.push({id: uuid(), description: '', icon: 'empty'})
         },
         updateIconOfActivity(icon: IconName, activityId: string, dayPartId: string): void {
             this.schedule.dayParts
@@ -83,6 +85,14 @@ export const useScheduleStore = defineStore('schedule', {
                 .activities
                 .find((activity) => activity.id === activityId)
                 .icon = icon;
+        },
+        updateDescriptionOfActivity(description: string, activityId: string, dayPartId: string): void {
+            this.schedule.dayParts
+                .find((dayPart) => dayPart.id === dayPartId)
+                .activities
+                .find((activity) => activity.id === activityId)
+                .description = description;
+            console.log(this.schedule)
         }
     }
 })

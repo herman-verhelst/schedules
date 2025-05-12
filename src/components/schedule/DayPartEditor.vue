@@ -16,6 +16,8 @@ import BaseTableCell from "@/components/base/table/BaseTableCell.vue";
 import BaseSimpleInput from "@/components/base/BaseSimpleInput.vue";
 import IconSelector from "@/components/schedule/IconSelector.vue";
 import BaseIcon from "@/components/base/icon/BaseIcon.vue";
+import {useDebounce} from "@/composables/useDebounce";
+import {Activity} from "@/models/activity.interface";
 
 const props = defineProps({
   dayPart: {
@@ -38,7 +40,7 @@ watch(startTime, (val) => {
   const [hours, minutes] = val.split(':').map(Number);
   scheduleStore.updateTime(
       props.dayPart.id,
-      new Date().setHours(hours, minutes, 0),
+      new Date().setHours(hours, minutes, 0, 0),
       'start'
   );
 });
@@ -47,7 +49,7 @@ watch(endTime, (val) => {
   const [hours, minutes] = val.split(':').map(Number);
   scheduleStore.updateTime(
       props.dayPart.id,
-      new Date().setHours(hours, minutes, 0),
+      new Date().setHours(hours, minutes, 0, 0),
       'end'
   );
 });
@@ -59,6 +61,12 @@ function removeDayPart(): void {
 function addActivity(): void {
   scheduleStore.addActivityToDayPart(props.dayPart.id);
 }
+
+const {debounce} = useDebounce(500);
+
+const updateDescription = debounce((activity: Activity) => {
+  scheduleStore.updateDescriptionOfActivity(activity.description, activity.id, props.dayPart.id)
+})
 </script>
 
 <template>
@@ -91,7 +99,10 @@ function addActivity(): void {
           <BaseTableBody>
             <BaseTableRow v-for="activity of dayPart.activities">
               <BaseTableCell>
-                <BaseSimpleInput></BaseSimpleInput>
+                <BaseSimpleInput
+                    @input="updateDescription(activity)"
+                    v-model="activity.description">
+                </BaseSimpleInput>
               </BaseTableCell>
               <BaseTableCell>
                 <IconSelector

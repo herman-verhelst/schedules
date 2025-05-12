@@ -22,8 +22,7 @@ const props = defineProps({
 const scheduleStore = useScheduleStore();
 
 function setSelectedIcon(icon: IconName): void {
-  console.log(icon)
-  scheduleStore.updateIconOfActivity(icon, props.activityId, props.dayPartId)
+  scheduleStore.updateIconOfActivity(icon, props.activityId, props.dayPartId);
 }
 </script>
 
