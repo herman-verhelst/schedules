@@ -4,6 +4,7 @@ import {v4 as uuid} from 'uuid'
 import {DayPart} from "@/models/dayPart.interface";
 import {addHours, compareAsc} from "date-fns";
 import {Icon} from "@tabler/icons-vue";
+import {ActivityType} from "@/models/activityType.interface";
 
 interface ScheduleState {
     schedule: Schedule;
@@ -92,6 +93,13 @@ export const useScheduleStore = defineStore('schedule', {
                 .activities
                 .find((activity) => activity.id === activityId)
                 .description = description;
+        },
+        updateActivityTypeOfActivity(type: ActivityType, activityId: string, dayPartId: string): void {
+            this.schedule.dayParts
+                .find((dayPart) => dayPart.id === dayPartId)
+                .activities
+                .find((activity) => activity.id === activityId)
+                .type = type;
             console.log(this.schedule)
         }
     }

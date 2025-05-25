@@ -6,7 +6,6 @@ import {useIconStore} from "@/stores/icon.store";
 import {storeToRefs} from "pinia";
 import {makeFirstLetterUpperCase} from "@/utils/string.utils";
 import {computed, ref, onMounted, PropType} from "vue";
-import {Icon} from "@/models/icon.interface";
 
 const props = defineProps({
   activityId: {
@@ -48,7 +47,6 @@ function setSelectedIcon(icon: IconName): void {
 </script>
 
 <template>
-  <div class="absolute rounded bg-grayscale-0 border border-grayscale-20 shadow w-64 mt-1">
     <input
         v-model="searchQuery"
         ref="searchInput"
@@ -68,8 +66,6 @@ function setSelectedIcon(icon: IconName): void {
         <span class="icon-label">{{ makeFirstLetterUpperCase(icon.officialName) }}</span>
       </button>
     </div>
-
-  </div>
 </template>
 
 <style scoped lang="scss">

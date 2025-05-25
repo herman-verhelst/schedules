@@ -18,6 +18,7 @@ import IconSelector from "@/components/schedule/IconSelector.vue";
 import BaseIcon from "@/components/base/icon/BaseIcon.vue";
 import {useDebounce} from "@/composables/useDebounce";
 import {Activity} from "@/models/activity.interface";
+import ActivityTypeSelector from "@/components/schedule/ActivityTypeSelector.vue";
 
 const props = defineProps({
   dayPart: {
@@ -111,7 +112,13 @@ const updateDescription = debounce((activity: Activity) => {
                     :activity-id="activity.id">
                 </IconSelector>
               </BaseTableCell>
-              <BaseTableCell></BaseTableCell>
+              <BaseTableCell>
+                <ActivityTypeSelector
+                    :activity-id="activity.id"
+                    :day-part-id="dayPart.id"
+                    :selected-activity-type="activity.type"
+                ></ActivityTypeSelector>
+              </BaseTableCell>
             </BaseTableRow>
           </BaseTableBody>
         </BaseTable>

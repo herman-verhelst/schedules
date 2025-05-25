@@ -4,6 +4,7 @@ import {DayPart} from "@/models/dayPart.interface";
 import {format} from "date-fns";
 import {useScheduleStore} from "@/stores/schedule.store";
 import BaseIcon from "@/components/base/icon/BaseIcon.vue";
+import ActivityTypeRenderer from "@/components/schedule/ActivityTypeRenderer.vue";
 
 const props = defineProps({
   dayPart: {
@@ -27,6 +28,7 @@ function setAsActive(): void {
         <BaseIcon class="w-12 h-12" :class="{'!w-8 !h-8': dayPart.activities.length > 1}" :name="activity.icon.icon"></BaseIcon>
         <div>
           <p class="text-base font-bold">{{ activity.description }}</p>
+          <ActivityTypeRenderer class="text-sm" :activity-type="activity.type"></ActivityTypeRenderer>
         </div>
       </div>
     </div>

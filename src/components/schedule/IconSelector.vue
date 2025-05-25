@@ -4,7 +4,8 @@ import BaseButton from "@/components/base/BaseButton.vue";
 import IconList from "@/components/schedule/IconList.vue";
 import {ref, watch} from "vue";
 import BaseIcon from "@/components/base/icon/BaseIcon.vue";
-import {makeFirstLetterUpperCase} from "../../utils/string.utils";
+import {makeFirstLetterUpperCase} from "@/utils/string.utils";
+import BasePopover from "@/components/base/BasePopover.vue";
 
 let iconListOpen = ref(false);
 
@@ -26,7 +27,6 @@ function toggleIconList(): void {
   iconListOpen.value = !iconListOpen.value;
 }
 
-
 function closeIconList(): void {
   iconListOpen.value = false;
 }
@@ -38,7 +38,7 @@ watch(() => props.selectedIcon, () => {
 
 <template>
   <div v-click-outside="closeIconList">
-    <BaseButton variant="subtle" :class="{'!text-grayscale-80': !selectedIcon}" @click="toggleIconList()">
+    <BaseButton variant="subtle" :class="{'!text-grayscale-80': selectedIcon == 'empty'}" @click="toggleIconList()">
       <template v-if="selectedIcon != 'empty'">
         <BaseIcon class="w-6 h-6" :name="selectedIcon.icon"/>
         {{ makeFirstLetterUpperCase(selectedIcon.officialName) }}
@@ -48,9 +48,9 @@ watch(() => props.selectedIcon, () => {
       </template>
     </BaseButton>
 
-    <div v-if="iconListOpen">
+    <BasePopover v-if="iconListOpen">
       <IconList :activity-id="activityId" :day-part-id="dayPartId" :selected-icon="selectedIcon"></IconList>
-    </div>
+    </BasePopover>
   </div>
 
 
