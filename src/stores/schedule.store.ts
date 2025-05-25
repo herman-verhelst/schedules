@@ -80,6 +80,11 @@ export const useScheduleStore = defineStore('schedule', {
                 .find((dayPart) => dayPart.id === dayPartId)
                 .activities.push({id: uuid(), description: '', icon: 'empty'})
         },
+        removeActivityFromDayPart(activityId: string, dayPartId: string): void {
+            const dayPart = this.schedule.dayParts.find((dayPart) => dayPart.id === dayPartId);
+            const index = dayPart.activities.findIndex((activity) => activity.id === activityId);
+            dayPart.activities.splice(index, 1);
+        },
         updateIconOfActivity(icon: Icon, activityId: string, dayPartId: string): void {
             this.schedule.dayParts
                 .find((dayPart) => dayPart.id === dayPartId)

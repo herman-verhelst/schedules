@@ -37,7 +37,7 @@ watch(() => props.selectedIcon, () => {
 </script>
 
 <template>
-  <div v-click-outside="closeIconList">
+  <div v-click-outside="closeIconList" class="w-full">
     <BaseButton variant="subtle" :class="{'!text-grayscale-80': selectedIcon == 'empty'}" @click="toggleIconList()">
       <template v-if="selectedIcon != 'empty'">
         <BaseIcon class="w-6 h-6" :name="selectedIcon.icon"/>

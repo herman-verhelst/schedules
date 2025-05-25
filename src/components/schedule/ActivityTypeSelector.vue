@@ -45,7 +45,7 @@ function setSelectedActivityType(activityType: ActivityType): void {
 </script>
 
 <template>
-  <div v-click-outside="closeIconList">
+  <div v-click-outside="closeIconList" class="w-full">
     <BaseButton variant="subtle" :class="{'!text-grayscale-80': !selectedActivityType}" @click="toggleIconList()">
       <template v-if="selectedActivityType">
         <ActivityTypeRenderer :activity-type="selectedActivityType"></ActivityTypeRenderer>
