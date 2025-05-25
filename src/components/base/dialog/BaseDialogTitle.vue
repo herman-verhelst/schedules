@@ -1,11 +1,12 @@
 <script setup>
 
+import BaseTitle from "@/components/base/BaseTitle.vue";
 </script>
 
 <template>
-<div class="absolute rounded bg-grayscale-0 border border-grayscale-20 shadow w-48 mt-1">
+<BaseTitle size="h3">
   <slot></slot>
-</div>
+</BaseTitle>
 </template>
 
 <style scoped lang="scss">

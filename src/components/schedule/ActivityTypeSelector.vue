@@ -1,10 +1,7 @@
 <script setup lang="ts">
 
-import {makeFirstLetterUpperCase} from "@/utils/string.utils";
 import BaseButton from "@/components/base/BaseButton.vue";
-import IconList from "@/components/schedule/IconList.vue";
 import BasePopover from "@/components/base/BasePopover.vue";
-import BaseIcon from "@/components/base/icon/BaseIcon.vue";
 import {ActivityType} from "@/models/activityType.interface";
 import {PropType, ref} from "vue";
 import {useScheduleStore} from "@/stores/schedule.store";

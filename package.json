@@ -13,6 +13,7 @@
     "@tabler/icons-vue": "^3.31.0",
     "@tailwindcss/vite": "^4.1.4",
     "date-fns": "^4.1.0",
+    "jspdf": "^3.0.1",
     "pinia": "^3.0.2",
     "tailwindcss": "^4.1.4",
     "uuid": "^11.1.0",

@@ -4,13 +4,17 @@ import {storeToRefs} from "pinia";
 import CalendarElement from "@/components/schedule/CalendarElement.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 import {useDebounce} from "@/composables/useDebounce";
-import {computed, onMounted} from "vue";
+import {computed, onMounted, ref, useAttrs} from "vue";
 import {differenceInMinutes} from "date-fns";
 import {DayPart} from "@/models/dayPart.interface";
-import {IconPlus} from "@tabler/icons-vue";
+import {IconPlus, IconFileArrowRight} from "@tabler/icons-vue";
+import BaseDialog from "@/components/base/dialog/BaseDialog.vue";
+import ExportSchedule from "@/components/schedule/ExportSchedule.vue";
 
 const scheduleStore = useScheduleStore();
-const {schedule} = storeToRefs(scheduleStore)
+const {schedule} = storeToRefs(scheduleStore);
+
+let exportPDFOpen = ref(false);
 
 // Height for 30 minutes
 const dayPartHeight = 64;
@@ -56,19 +60,28 @@ function getTopMarginOfButton(): number {
 onMounted(() => {
   const element = document.getElementById('time-16');
   element.scrollIntoView();
-
 })
+
+function toggleExportScheduleModal(): void {
+  exportPDFOpen.value = !exportPDFOpen.value;
+}
+
+const attrs = useAttrs()
 </script>
 
 <template>
-  <div class="mt-8 flex flex-col gap-8 w-full">
-    <div class="px-8">
+  <div v-bind="attrs" class="mt-8 flex flex-col gap-8 w-full">
+    <div class="px-8 flex items-center justify-between">
       <input
           type="text"
           placeholder="Geef je schema een titel..."
           v-model="title"
           @input="updateTitle"
           class="text-3xl outline-none text-grayscale-100 placeholder:text-grayscale-80 w-full"/>
+      <BaseButton @click="toggleExportScheduleModal" variant="primary">
+        <IconFileArrowRight size="14"></IconFileArrowRight>
+        Exporteer PDF
+      </BaseButton>
     </div>
 
     <div class="h-full w-full border-t border-grayscale-20 px-8">
@@ -105,11 +118,10 @@ onMounted(() => {
           </BaseButton>
         </div>
       </div>
-
     </div>
-
   </div>
 
+  <ExportSchedule @close="toggleExportScheduleModal" v-if="exportPDFOpen"></ExportSchedule>
 </template>
 
 <style scoped lang="scss">
