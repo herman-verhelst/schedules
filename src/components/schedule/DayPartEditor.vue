@@ -111,7 +111,7 @@ const updateDescription = debounce((activity: Activity) => {
                     :activity-id="activity.id">
                 </IconSelector>
               </BaseTableCell>
-              <BaseTableCell>{{ activity.icon }}</BaseTableCell>
+              <BaseTableCell></BaseTableCell>
             </BaseTableRow>
           </BaseTableBody>
         </BaseTable>

@@ -1,14 +1,17 @@
 import * as path from "node:path";
 import fsExtra from "fs-extra";
-import { glob } from "glob";
-import { parse } from "node-html-parser";
-import { optimize } from "svgo";
+import {glob} from "glob";
+import {parse} from "node-html-parser";
+import {optimize} from "svgo";
 
 const cwd = process.cwd();
 const inputDir = path.join(cwd, "tooling", "icons", "src");
 const inputDirRelative = path.relative(cwd, inputDir);
 const typeDir = path.join(cwd, "src", "components", "base", "icon", "types");
 const outputDir = path.join(cwd, "public", "icons");
+
+const jsonDir = path.join(cwd, "public", "icons", 'icons.json');
+
 await fsExtra.ensureDir(outputDir);
 await fsExtra.ensureDir(typeDir);
 
@@ -19,7 +22,8 @@ const files = glob
     .sort((a, b) => a.localeCompare(b));
 
 const shouldVerboseLog = process.argv.includes("--log=verbose");
-const logVerbose = shouldVerboseLog ? console.log : () => {};
+const logVerbose = shouldVerboseLog ? console.log : () => {
+};
 
 if (files.length === 0) {
     console.log(`No SVG files found in ${inputDirRelative}`);
@@ -74,6 +78,28 @@ ${stringifiedIconNames.map((n) => `  ${n},`).join("\n")}
 `;
     const iconNamesChanged = await writeIfChanged(iconNamesOutputPath, iconNamesTsContent);
     logVerbose(`iconNames.ts saved to ${path.relative(cwd, iconNamesOutputPath)}`);
+
+    let existingIcons: { icon: string; officialName: string; alternativeNames: string }[] = [];
+
+    try {
+        existingIcons = JSON.parse(await fsExtra.readFile(jsonDir, "utf8"));
+    } catch {
+    }
+
+    const newIcons = files.map((file) => {
+        const icon = iconName(file);
+        const officialName = icon.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+        return {icon, officialName, alternativeNames: ""};
+    });
+
+    const combinedIcons = [
+        ...existingIcons,
+        ...newIcons.filter((newIcon) => !existingIcons.some((existing) => existing.icon === newIcon.icon)),
+    ];
+
+    const jsonContent = JSON.stringify(combinedIcons, null, 2);
+    await writeIfChanged(jsonDir, jsonContent);
+    logVerbose(`Wrote combined JSON metadata to icons.json`);
 
     logVerbose(`Manifest saved to ${path.relative(cwd, typeOutputFilepath)}`);
 

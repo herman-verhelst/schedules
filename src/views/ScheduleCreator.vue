@@ -1,6 +1,10 @@
 <script setup>
 import DayPart from "@/components/schedule/DayPart.vue";
 import Calendar from "@/components/schedule/Calendar.vue";
+import {useIconStore} from "@/stores/icon.store.js";
+
+const iconStore = useIconStore();
+iconStore.fetchIcons();
 
 </script>
 

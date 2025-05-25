@@ -4,6 +4,7 @@ import BaseButton from "@/components/base/BaseButton.vue";
 import IconList from "@/components/schedule/IconList.vue";
 import {ref, watch} from "vue";
 import BaseIcon from "@/components/base/icon/BaseIcon.vue";
+import {makeFirstLetterUpperCase} from "../../utils/string.utils";
 
 let iconListOpen = ref(false);
 
@@ -17,7 +18,6 @@ const props = defineProps({
     required: true,
   },
   selectedIcon: {
-    type: String,
     required: true,
   },
 })
@@ -40,8 +40,8 @@ watch(() => props.selectedIcon, () => {
   <div v-click-outside="closeIconList">
     <BaseButton variant="subtle" :class="{'!text-grayscale-80': !selectedIcon}" @click="toggleIconList()">
       <template v-if="selectedIcon != 'empty'">
-        <BaseIcon class="w-6 h-6" :name="selectedIcon"/>
-        {{ selectedIcon }}
+        <BaseIcon class="w-6 h-6" :name="selectedIcon.icon"/>
+        {{ makeFirstLetterUpperCase(selectedIcon.officialName) }}
       </template>
       <template v-else>
         Selecteer icoon
