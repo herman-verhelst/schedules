@@ -43,11 +43,11 @@ for (let hour = 0; hour < 24; hour++) {
   times.push(`${formattedHour}:30`);
 }
 
-function getHeightOfSchedule(dayPart: DayPart): number {
+function getHeightOfDayPart(dayPart: DayPart): number {
   return (differenceInMinutes(dayPart.endTime, dayPart.startTime) * dayPartHeight / 30) - 2;
 }
 
-function getTopMarginOfSchedule(dayPart: DayPart, index: number): number {
+function getTopMarginOfDayPart(dayPart: DayPart, index: number): number {
   if (!index) return 0;
   return (differenceInMinutes(dayPart.startTime, schedule.value.dayParts[index - 1].endTime) * dayPartHeight / 30) + 1;
 }
@@ -110,7 +110,7 @@ const attrs = useAttrs()
             <CalendarElement
                 v-for="(dayPart, index) in schedule.dayParts"
                 class="my-[1px]"
-                :style="`height: ${getHeightOfSchedule(dayPart)}px; margin-top: ${getTopMarginOfSchedule(dayPart, index)}px`"
+                :style="`height: ${getHeightOfDayPart(dayPart)}px; margin-top: ${getTopMarginOfDayPart(dayPart, index)}px`"
                 :day-part="dayPart"></CalendarElement>
           </div>
           <BaseButton v-if="schedule.dayParts?.length > 0" @click="addDayPart(false)" icon>

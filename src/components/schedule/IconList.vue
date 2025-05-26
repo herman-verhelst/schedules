@@ -60,10 +60,10 @@ function setSelectedIcon(icon: IconName): void {
           @click="setSelectedIcon(icon)"
           v-for="icon in filteredIcons"
           :key="icon.icon"
-          class="flex gap-2 w-full rounded p-1 hover:bg-grayscale-10 focus:bg-grayscale-20 focus:outline-none"
+          class="flex items-center gap-2 w-full rounded p-1 hover:bg-grayscale-10 focus:bg-grayscale-20 focus:outline-none"
           :class="{'bg-grayscale-15': icon.icon === selectedIcon.icon}">
         <BaseIcon class="w-6 h-6" :name="icon.icon"/>
-        <span class="icon-label">{{ makeFirstLetterUpperCase(icon.officialName) }}</span>
+        <span class="text-left">{{ makeFirstLetterUpperCase(icon.officialName) }}</span>
       </button>
     </div>
 </template>

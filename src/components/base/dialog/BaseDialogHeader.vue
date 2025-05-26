@@ -3,8 +3,6 @@
 import BaseTitle from "@/components/base/BaseTitle.vue";
 import BaseDialogClose from "@/components/base/dialog/BaseDialogClose.vue";
 
-import {defineEmits} from "vue";
-
 const emit = defineEmits(['close']);
 
 function closeModal() {
