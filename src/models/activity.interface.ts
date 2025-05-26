@@ -1,9 +1,9 @@
 import {ActivityType} from "@/models/activityType.interface";
-import {IconName} from "@/components/base/icon/types/name";
+import {Icon} from "@/models/icon.interface";
 
 export interface Activity {
     id: string;
-    icon: IconName | undefined;
+    icon: Icon | undefined;
     description: string | undefined;
     type: ActivityType | undefined;
 }

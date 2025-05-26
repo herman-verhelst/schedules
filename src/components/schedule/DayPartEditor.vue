@@ -18,6 +18,7 @@ import IconSelector from "@/components/schedule/IconSelector.vue";
 import BaseIcon from "@/components/base/icon/BaseIcon.vue";
 import {useDebounce} from "@/composables/useDebounce";
 import {Activity} from "@/models/activity.interface";
+import ActivityTypeSelector from "@/components/schedule/ActivityTypeSelector.vue";
 
 const props = defineProps({
   dayPart: {
@@ -58,6 +59,10 @@ function removeDayPart(): void {
   scheduleStore.removeDayPart(props.dayPart.id);
 }
 
+function removeActivity(activityId: string): void {
+  scheduleStore.removeActivityFromDayPart(activityId, props.dayPart.id);
+}
+
 function addActivity(): void {
   scheduleStore.addActivityToDayPart(props.dayPart.id);
 }
@@ -94,6 +99,7 @@ const updateDescription = debounce((activity: Activity) => {
               <BaseTableHead>Beschrijving</BaseTableHead>
               <BaseTableHead>Icoon</BaseTableHead>
               <BaseTableHead>Type</BaseTableHead>
+              <BaseTableHead class="w-12"></BaseTableHead>
             </BaseTableRow>
           </BaseTableHeader>
           <BaseTableBody>
@@ -111,7 +117,18 @@ const updateDescription = debounce((activity: Activity) => {
                     :activity-id="activity.id">
                 </IconSelector>
               </BaseTableCell>
-              <BaseTableCell>{{ activity.icon }}</BaseTableCell>
+              <BaseTableCell>
+                <ActivityTypeSelector
+                    :activity-id="activity.id"
+                    :day-part-id="dayPart.id"
+                    :selected-activity-type="activity.type"
+                ></ActivityTypeSelector>
+              </BaseTableCell>
+              <BaseTableCell class="w-12">
+                <BaseButton variant="subtle" icon size="s" @click="removeActivity(activity.id)">
+                  <IconTrash size="14"></IconTrash>
+                </BaseButton>
+              </BaseTableCell>
             </BaseTableRow>
           </BaseTableBody>
         </BaseTable>

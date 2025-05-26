@@ -1,0 +1,127 @@
+[
+  {
+    "icon": "ballsports",
+    "officialName": "balsport",
+    "alternativeNames": "balsport, sport, activiteit"
+  },
+  {
+    "icon": "craft",
+    "officialName": "Knutselen",
+    "alternativeNames": "knutselen, hobby, creatief, activiteit"
+  },
+  {
+    "icon": "eating-biscuit",
+    "officialName": "Vieruurtje",
+    "alternativeNames": "Koekje, snack, vieruurtje, eten"
+  },
+  {
+    "icon": "eating",
+    "officialName": "Eten",
+    "alternativeNames": "eten, maaltijd, lunch, diner"
+  },
+  {
+    "icon": "kayaking",
+    "officialName": "Kajakken",
+    "alternativeNames": "kayak, kano, varen"
+  },
+  {
+    "icon": "kubb",
+    "officialName": "Kubben",
+    "alternativeNames": "Koningsspel, kubb"
+  },
+  {
+    "icon": "making-bed",
+    "officialName": "Bed opmaken",
+    "alternativeNames": "Aankomst, vertrek"
+  },
+  {
+    "icon": "packing-luggage",
+    "officialName": "Bagage inpakken",
+    "alternativeNames": "Aankomst, vertrek"
+  },
+  {
+    "icon": "partying",
+    "officialName": "Feesten",
+    "alternativeNames": "Laatste avond, feestje"
+  },
+  {
+    "icon": "quiz",
+    "officialName": "Quiz",
+    "alternativeNames": "Quiz, spel, activiteit"
+  },
+  {
+    "icon": "resting",
+    "officialName": "Rusten",
+    "alternativeNames": "BVT, platte rust, begeleid vrije tijd, bed"
+  },
+  {
+    "icon": "running",
+    "officialName": "Lopen",
+    "alternativeNames": "Sport, activiteit, lopen, rennen"
+  },
+  {
+    "icon": "seating",
+    "officialName": "Zitten",
+    "alternativeNames": "Zitten, rusten, stoel, zetel"
+  },
+  {
+    "icon": "shopping",
+    "officialName": "Winkelen",
+    "alternativeNames": "Shoppen, boodschappen, winkel, supermarkt"
+  },
+  {
+    "icon": "showering",
+    "officialName": "Douchen",
+    "alternativeNames": "Omkleden, wassen, hygiëne, badkamer"
+  },
+  {
+    "icon": "singing",
+    "officialName": "Zingen",
+    "alternativeNames": "Zingen, muziek, dansen"
+  },
+  {
+    "icon": "sleeping",
+    "officialName": "Slapen",
+    "alternativeNames": "Bed, nacht, rusten, slapen"
+  },
+  {
+    "icon": "swimming",
+    "officialName": "Zwemmen",
+    "alternativeNames": "Zwembad, water, sport"
+  },
+  {
+    "icon": "van",
+    "officialName": "Bus",
+    "alternativeNames": "Uitstap, vervoer, bus, activiteit"
+  },
+  {
+    "icon": "waking-up",
+    "officialName": "Wakker worden",
+    "alternativeNames": "Opstaan, ochtend, wakker worden"
+  },
+  {
+    "icon": "walking-wheelchair",
+    "officialName": "Wandelen met rolstoel",
+    "alternativeNames": "Wandelen, rolstoel, activiteit"
+  },
+  {
+    "icon": "walking",
+    "officialName": "Wandelen",
+    "alternativeNames": "Wandelen, activiteit, buiten, natuur"
+  },
+  {
+    "icon": "watching_television",
+    "officialName": "Televisie kijken",
+    "alternativeNames": "TV, televisie, film, serie"
+  },
+  {
+    "icon": "yoga",
+    "officialName": "Yoga",
+    "alternativeNames": "Yoga, ontspanning, activiteit, avondsluiting"
+  },
+  {
+    "icon": "cooking",
+    "officialName": "Koken",
+    "alternativeNames": "Koken, maaltijd, eten klaarmaken"
+  }
+]
