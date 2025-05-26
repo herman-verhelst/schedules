@@ -39,7 +39,9 @@ function createPDF(): void {
       document.save('dagschema.pdf');
     },
     width: 210,
+    height: 297,
     windowWidth: pdfContent.value?.offsetWidth,
+    windowHeight: pdfContent.value?.offsetHeight,
   })
 }
 </script>
