@@ -25,7 +25,7 @@ function setAsActive(): void {
        class="border border-electric-indigo-100 bg-electric-indigo-5 rounded-sm p-4 w-full flex justify-between items-center cursor-pointer" @click="setAsActive">
     <div class="flex gap-8">
       <div v-for="activity in dayPart.activities" class="flex items-center gap-4 min-w-24" :class="{'flex-col !gap-1': dayPart.activities.length > 1}">
-        <BaseIcon class="w-12 h-12" :class="{'!w-8 !h-8': dayPart.activities.length > 1}" :name="activity.icon.icon"></BaseIcon>
+        <BaseIcon class="w-12 h-12" :class="{'!w-8 !h-8': dayPart.activities.length > 1}" :name="activity.icon?.icon"></BaseIcon>
         <div>
           <p class="text-base font-bold">{{ activity.description }}</p>
           <ActivityTypeRenderer class="text-sm" :activity-type="activity.type"></ActivityTypeRenderer>

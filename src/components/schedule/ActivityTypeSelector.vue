@@ -2,7 +2,7 @@
 
 import BaseButton from "@/components/base/BaseButton.vue";
 import BasePopover from "@/components/base/BasePopover.vue";
-import {ActivityType} from "@/models/activityType.interface";
+import {ActivityType} from "@/models/activityType.enum";
 import {PropType, ref} from "vue";
 import {useScheduleStore} from "@/stores/schedule.store";
 import ActivityTypeRenderer from "@/components/schedule/ActivityTypeRenderer.vue";
@@ -35,7 +35,7 @@ function closeIconList(): void {
   activityTypeOpen.value = false;
 }
 
-function setSelectedActivityType(activityType: ActivityType): void {
+function setSelectedActivityType(activityType: ActivityType | undefined): void {
   scheduleStore.updateActivityTypeOfActivity(activityType, props.activityId, props.dayPartId);
   closeIconList();
 }
@@ -53,7 +53,13 @@ function setSelectedActivityType(activityType: ActivityType): void {
     </BaseButton>
 
     <BasePopover v-if="activityTypeOpen">
-      <div class="p-2 flex flex-col gap-1">
+      <div class="p-1 flex flex-col gap-1">
+        <button
+            @click="setSelectedActivityType()"
+            class="flex text-grayscale-80 gap-2 items-center w-full rounded p-1 hover:bg-grayscale-10 focus:bg-grayscale-20 focus:outline-none"
+            :class="{'bg-grayscale-15': !selectedActivityType}">
+          Zonder type
+        </button>
         <button
             @click="setSelectedActivityType(activityType)"
             v-for="activityType in activityTypes"

@@ -41,7 +41,8 @@ const filteredIcons = computed(() => {
   );
 });
 
-function setSelectedIcon(icon: IconName): void {
+function setSelectedIcon(icon: IconName | undefined): void {
+  if (!icon) icon = 'empty';
   scheduleStore.updateIconOfActivity(icon, props.activityId, props.dayPartId);
 }
 </script>
@@ -51,11 +52,17 @@ function setSelectedIcon(icon: IconName): void {
         v-model="searchQuery"
         ref="searchInput"
         type="text"
-        placeholder="Search icons..."
+        placeholder="Zoek icoon..."
         class="p-3 border-b-1 border-grayscale-20 w-full focus:bg-grayscale-10 focus:outline-none"
     />
 
-    <div class="p-2 overflow-auto max-h-64 flex flex-col gap-1">
+    <div class="p-1 overflow-auto max-h-64 flex flex-col gap-1">
+      <button
+          class="text-grayscale-80 flex items-center gap-2 w-full rounded px-2 py-1 hover:bg-grayscale-10 focus:bg-grayscale-20 focus:outline-none"
+          :class="{'bg-grayscale-15': !selectedIcon.icon}"
+          @click="setSelectedIcon()">
+        Zonder icoon
+      </button>
       <button
           @click="setSelectedIcon(icon)"
           v-for="icon in filteredIcons"

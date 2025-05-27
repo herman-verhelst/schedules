@@ -14,7 +14,7 @@ onMounted(() => {
 
 <template>
   <div
-      class="flex items-center p-4"
+      class="flex items-center p-6"
       :class="{'justify-end': isSingleChild, 'justify-between': !isSingleChild}"
       ref="dialogFooter"
   >
