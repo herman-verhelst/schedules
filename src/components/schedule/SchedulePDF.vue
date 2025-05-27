@@ -76,7 +76,7 @@ function getTopMarginOfDayPart(dayPart: DayPart, index: number): number {
       position: relative;
       display: flex;">
     <div style="width: calc(4/12 * 100%); margin-right: calc(1/12 * 100%); ">
-      <p style="font-size: 40px; font-family: 'LexendDeca-Bold'; font-weight: bold;">
+      <p style="font-size: 40px; line-height: 48px; font-family: 'LexendDeca-Bold'; font-weight: bold;">
         {{ schedule.title }}
       </p>
     </div>
@@ -89,7 +89,7 @@ function getTopMarginOfDayPart(dayPart: DayPart, index: number): number {
       align-items: center;
       font-variant-numeric: tabular-nums;
       justify-content: space-around">
-      <p v-for="slot in halfHourTimeSlots" style="font-family: 'LexendDeca-Light';">{{ slot }}</p>
+      <p v-for="slot in halfHourTimeSlots" style="font-family: 'LexendDeca-Light'; font-size: 16px; line-height: 16px">{{ slot }}</p>
     </div>
     <div style="
     width: 50%;
@@ -102,11 +102,11 @@ function getTopMarginOfDayPart(dayPart: DayPart, index: number): number {
           margin-top: ${getTopMarginOfDayPart(dayPart, index)}mm;`"
       >
         <div v-for="activity in dayPart.activities"
-             style="display: flex; align-items: center; gap: 4mm; height: 100%; width: 64mm;"
+             style="display: flex; align-items: center; gap: 4mm; height: 100%; width: 100%;"
              :style="`border-left: 4px solid ${activity.type?.color};`">
           <div style="padding: 2mm; width: 100%; display: flex; align-items: center; "
-               :style="`flex-direction: ${dayPart.activities.length > 1 ? 'column' : 'row'}; gap: ${dayPart.activities.length > 1 ? '4mm' : '16mm'}; align-items: center;`">
-            <BaseIcon v-if="activity.icon" style="width: 12mm; height: 12mm;" :name="activity.icon.icon"
+               :style="`flex-direction: ${dayPart.activities.length > 1 ? 'column' : 'row'}; gap: ${dayPart.activities.length > 1 ? '2mm' : '8mm'}; align-items: center;`">
+            <BaseIcon v-if="activity.icon" style="width: 20mm; height: 20mm;" :name="activity.icon.icon"
                       inline></BaseIcon>
             {{ activity.description }}
           </div>

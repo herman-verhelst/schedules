@@ -86,11 +86,12 @@ export const useScheduleStore = defineStore('schedule', {
             dayPart.activities.splice(index, 1);
         },
         updateIconOfActivity(icon: Icon, activityId: string, dayPartId: string): void {
-            this.schedule.dayParts
+            const activity = this.schedule.dayParts
                 .find((dayPart) => dayPart.id === dayPartId)
                 .activities
                 .find((activity) => activity.id === activityId)
-                .icon = icon;
+
+            activity.icon = icon;
         },
         updateDescriptionOfActivity(description: string, activityId: string, dayPartId: string): void {
             this.schedule.dayParts

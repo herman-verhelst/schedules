@@ -71,7 +71,7 @@ const attrs = useAttrs()
 
 <template>
   <div v-bind="attrs" class="mt-8 flex flex-col gap-8 w-full">
-    <div class="px-8 flex items-center justify-between">
+    <div class="px-8 flex items-center justify-between gap-4">
       <input
           type="text"
           placeholder="Geef je schema een titel..."
