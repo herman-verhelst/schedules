@@ -20,7 +20,6 @@ defineProps(
         default: 'm',
         validator: (value: string, props) => ['m', 's', 'xs'].includes(value)
       },
-
       disabled: {
         type: Boolean,
         default: false,
@@ -32,7 +31,7 @@ defineProps(
       icon: {
         type: Boolean,
         default: false,
-      }
+      },
     }
 )
 </script>
@@ -78,6 +77,12 @@ defineProps(
         background: linear-gradient(103deg, var(--color-electric-indigo-120) 0%, var(--color-electric-indigo-140) 100%);
         box-shadow: 0px 2px 3px 0px var(--color-electric-indigo-140) inset,
         0px 0px 0px 2px var(--color-electric-indigo-100, #652DD8) inset;
+      }
+
+      &:disabled {
+        border: 1px solid var(--color-grayscale-20);
+        background: linear-gradient(0deg, var(--color-electric-indigo-opacity-40) 0%, var(--color-electric-indigo-opacity-40) 100%), var(--color-grayscale-10);
+        box-shadow: none;
       }
     }
 

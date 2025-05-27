@@ -8,7 +8,6 @@ import {computed, onMounted, ref, useAttrs} from "vue";
 import {differenceInMinutes} from "date-fns";
 import {DayPart} from "@/models/dayPart.interface";
 import {IconPlus, IconFileArrowRight} from "@tabler/icons-vue";
-import BaseDialog from "@/components/base/dialog/BaseDialog.vue";
 import ExportSchedule from "@/components/schedule/ExportSchedule.vue";
 
 const scheduleStore = useScheduleStore();
@@ -78,7 +77,7 @@ const attrs = useAttrs()
           v-model="title"
           @input="updateTitle"
           class="text-3xl outline-none text-grayscale-100 placeholder:text-grayscale-80 w-full"/>
-      <BaseButton @click="toggleExportScheduleModal" variant="primary">
+      <BaseButton :disabled="!schedule.dayParts || schedule.dayParts.length < 1" @click="toggleExportScheduleModal" variant="primary">
         <IconFileArrowRight size="14"></IconFileArrowRight>
         Exporteer PDF
       </BaseButton>

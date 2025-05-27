@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {PropType, ref, watch} from "vue";
+import {nextTick, onMounted, PropType, ref, watch} from "vue";
 import {DayPart} from "@/models/dayPart.interface";
 import BaseInput from "@/components/base/BaseInput.vue";
 import BaseTitle from "@/components/base/BaseTitle.vue";
@@ -13,12 +13,11 @@ import BaseTableRow from "@/components/base/table/BaseTableRow.vue";
 import BaseTableHead from "@/components/base/table/BaseTableHead.vue";
 import BaseTableBody from "@/components/base/table/BaseTableBody.vue";
 import BaseTableCell from "@/components/base/table/BaseTableCell.vue";
-import BaseSimpleInput from "@/components/base/BaseSimpleInput.vue";
 import IconSelector from "@/components/schedule/IconSelector.vue";
-import BaseIcon from "@/components/base/icon/BaseIcon.vue";
 import {useDebounce} from "@/composables/useDebounce";
 import {Activity} from "@/models/activity.interface";
 import ActivityTypeSelector from "@/components/schedule/ActivityTypeSelector.vue";
+import BaseTableInput from "@/components/base/table/BaseTableInput.vue";
 
 const props = defineProps({
   dayPart: {
@@ -32,9 +31,29 @@ const scheduleStore = useScheduleStore();
 const startTime = ref('');
 const endTime = ref('');
 
+const activityInputs = ref<Record<string, InstanceType<typeof HTMLInputElement> | null>>({});
+
+function setInputRef(activityId: string, el: any) {
+  if (el && el.$el) {
+    activityInputs.value[activityId] = el.$el.querySelector('input');
+  }
+}
+
+onMounted(() => {
+  nextTick(() => {
+    const firstInput = Object.values(activityInputs.value)[0];
+    firstInput?.focusInput();
+  });
+})
+
 watch(() => props.dayPart, (newDayPart) => {
   startTime.value = format(newDayPart.startTime, 'HH:mm');
   endTime.value = format(newDayPart.endTime, 'HH:mm');
+
+  nextTick(() => {
+    const firstInput = Object.values(activityInputs.value)[0];
+    firstInput?.focusInput();
+  });
 }, {immediate: true});
 
 watch(startTime, (val) => {
@@ -63,8 +82,15 @@ function removeActivity(activityId: string): void {
   scheduleStore.removeActivityFromDayPart(activityId, props.dayPart.id);
 }
 
-function addActivity(): void {
+async function addActivity(): Promise<void> {
   scheduleStore.addActivityToDayPart(props.dayPart.id);
+
+  // Wait for DOM update
+  await nextTick();
+  const inputEl = activityInputs.value[activityInputs.value.length - 1];
+  if (inputEl) {
+    inputEl.focusInput();
+  }
 }
 
 const {debounce} = useDebounce(500);
@@ -104,12 +130,14 @@ const updateDescription = debounce((activity: Activity) => {
           </BaseTableHeader>
           <BaseTableBody>
             <BaseTableRow v-for="activity of dayPart.activities">
-              <BaseTableCell>
-                <BaseSimpleInput
-                    @input="updateDescription(activity)"
-                    v-model="activity.description">
-                </BaseSimpleInput>
-              </BaseTableCell>
+
+              <BaseTableInput
+                  ref="activityInputs"
+                  :ref="el => setInputRef(activity.id, el)"
+                  @input="updateDescription(activity)"
+                  v-model="activity.description"
+              />
+
               <BaseTableCell>
                 <IconSelector
                     :selected-icon="activity.icon"
