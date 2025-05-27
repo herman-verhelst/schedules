@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import {useAttrs} from "vue";
 
-const attrs = useAttrs()
 </script>
 
 <template>
-<div v-bind="attrs" class="px-6">
+<p class="text-sm text-grayscale-80">
   <slot></slot>
-</div>
+</p>
 </template>
 
 <style scoped lang="scss">

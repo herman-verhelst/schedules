@@ -2,7 +2,7 @@
 
 import {useScheduleStore} from "@/stores/schedule.store";
 import {storeToRefs} from "pinia";
-import {computed} from 'vue';
+import {computed, PropType} from 'vue';
 import {differenceInMinutes, format} from "date-fns";
 import {DayPart} from "@/models/dayPart.interface";
 import BaseIcon from "@/components/base/icon/BaseIcon.vue";
@@ -10,7 +10,14 @@ import BaseIcon from "@/components/base/icon/BaseIcon.vue";
 const scheduleStore = useScheduleStore();
 const {schedule} = storeToRefs(scheduleStore);
 
-const pageHeight = 287;
+const props = defineProps({
+  pageSize: {
+    type: Object as PropType<{ width: number; height: number }>,
+    required: true,
+  },
+})
+
+const padding = 5;
 
 console.log(schedule.value)
 
@@ -41,7 +48,7 @@ const halfHourTimeSlots = computed((): string[] => {
 });
 
 const halfHourTimeSlotHeight = computed(() => {
-  return pageHeight / halfHourTimeSlots.value.length;
+  return (props.pageSize.height - 2 * padding) / halfHourTimeSlots.value.length;
 })
 
 function getHeightOfDayPart(dayPart: DayPart): number {
@@ -61,10 +68,9 @@ function getTopMarginOfDayPart(dayPart: DayPart, index: number): number {
 
 <template>
   <div
+      :style="`height: ${pageSize.height}mm; width: ${pageSize.width}mm; padding: ${padding}mm;`"
       style="
-      padding: 5mm;
       background: #FFFFFF;
-      height: 297mm;
       font-family: 'LexendDeca-Regular';
       font-weight: normal;
       position: relative;
@@ -83,7 +89,7 @@ function getTopMarginOfDayPart(dayPart: DayPart, index: number): number {
       align-items: center;
       font-variant-numeric: tabular-nums;
       justify-content: space-around">
-      <p v-for="slot in halfHourTimeSlots" style="">{{ slot }}</p>
+      <p v-for="slot in halfHourTimeSlots" style="font-family: 'LexendDeca-Light';">{{ slot }}</p>
     </div>
     <div style="
     width: 50%;
@@ -98,8 +104,10 @@ function getTopMarginOfDayPart(dayPart: DayPart, index: number): number {
         <div v-for="activity in dayPart.activities"
              style="display: flex; align-items: center; gap: 4mm; height: 100%; width: 64mm;"
              :style="`border-left: 4px solid ${activity.type?.color};`">
-          <div style="padding: 2mm; width: 100%; display: flex; align-items: center; " :style="`flex-direction: ${dayPart.activities.length > 1 ? 'column' : 'row'}; gap: ${dayPart.activities.length > 1 ? '4mm' : '16mm'}; align-items: center;`">
-            <BaseIcon v-if="activity.icon" style="width: 12mm; height: 12mm;" :name="activity.icon.icon" inline></BaseIcon>
+          <div style="padding: 2mm; width: 100%; display: flex; align-items: center; "
+               :style="`flex-direction: ${dayPart.activities.length > 1 ? 'column' : 'row'}; gap: ${dayPart.activities.length > 1 ? '4mm' : '16mm'}; align-items: center;`">
+            <BaseIcon v-if="activity.icon" style="width: 12mm; height: 12mm;" :name="activity.icon.icon"
+                      inline></BaseIcon>
             {{ activity.description }}
           </div>
         </div>

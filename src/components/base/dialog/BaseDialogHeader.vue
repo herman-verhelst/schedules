@@ -11,8 +11,10 @@ function closeModal() {
 </script>
 
 <template>
-  <div class="flex items-center justify-between p-4">
-    <slot></slot>
+  <div class="flex items-center justify-between p-6">
+    <div class="flex flex-col gap-1">
+      <slot></slot>
+    </div>
     <BaseDialogClose @click="closeModal"></BaseDialogClose>
   </div>
 </template>

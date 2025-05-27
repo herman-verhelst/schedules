@@ -12,6 +12,9 @@ import jsPDF from "jspdf";
 import SchedulePDF from "@/components/schedule/SchedulePDF.vue";
 import {addBoldFont} from "@/utils/fonts/LexendDeca-bold";
 import {addRegularFont} from "@/utils/fonts/LexendDeca-normal";
+import {addLightFont} from "@/utils/fonts/LexendDeca-light";
+import {svg2pdf} from "svg2pdf.js";
+import BaseDialogDescription from "@/components/base/dialog/BaseDialogDescription.vue";
 
 const emit = defineEmits(['close']);
 
@@ -20,14 +23,19 @@ function closeModal() {
 }
 
 const pdfContent = ref<HTMLDivElement | null>(null);
-import { svg2pdf } from "svg2pdf.js";
+const pdfSize = {
+  width: 297,
+  height: 420
+}
 
 function createPDF(): void {
-  const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const pdf = new jsPDF({orientation: 'portrait', unit: 'mm', format: 'a3'});
   addBoldFont(pdf);
   addRegularFont(pdf);
+  addLightFont(pdf);
   pdf.setFont('LexendDeca-Bold', 'bold');
   pdf.setFont('LexendDeca-Regular', 'normal');
+  pdf.setFont('LexendDeca-Light', 'normal');
 
   const svgs = pdfContent.value?.querySelectorAll('svg');
   const hiddenSvgs: HTMLElement[] = [];
@@ -46,12 +54,12 @@ function createPDF(): void {
         try {
           const rect = svg.getBoundingClientRect();
 
-          const x = (rect.left - containerRect.left) * 210 / containerRect.width;
-          const y = (rect.top - containerRect.top) * 297 / containerRect.height;
-          const width = rect.width * 210 / containerRect.width;
-          const height = rect.height * 297 / containerRect.height;
+          const x = (rect.left - containerRect.left) * pdfSize.width / containerRect.width;
+          const y = (rect.top - containerRect.top) * pdfSize.height / containerRect.height;
+          const width = rect.width * pdfSize.width / containerRect.width;
+          const height = rect.height * pdfSize.height / containerRect.height;
 
-          await svg2pdf(svg as SVGSVGElement, doc, { x, y, width, height });
+          await svg2pdf(svg as SVGSVGElement, doc, {x, y, width, height});
         } catch (err) {
           console.warn("Skipping SVG due to error:", err);
         }
@@ -59,8 +67,8 @@ function createPDF(): void {
 
       doc.save('dagschema.pdf');
     },
-    width: 210,
-    height: 297,
+    width: pdfSize.width,
+    height: pdfSize.height,
     windowWidth: pdfContent.value?.offsetWidth,
     windowHeight: pdfContent.value?.offsetHeight,
   });
@@ -73,11 +81,14 @@ function createPDF(): void {
       <BaseDialogTitle>
         Exporteer dagschema
       </BaseDialogTitle>
+      <BaseDialogDescription>
+        Exporteer het dagschema als PDF. De PDF is geoptimaliseerd voor afdrukken op A3-formaat.
+      </BaseDialogDescription>
     </BaseDialogHeader>
-    <BaseDialogContent class="bg-grayscale-100 py-2 overflow-auto flex justify-center">
-      <div style="width: 210mm; height: 297mm;">
+    <BaseDialogContent class="bg-grayscale-100 py-2 overflow-auto">
+      <div :style="`width: ${pdfSize.width}mm; height: ${pdfSize.height}mm;`">
         <div ref="pdfContent">
-          <SchedulePDF></SchedulePDF>
+          <SchedulePDF :page-size="pdfSize"></SchedulePDF>
         </div>
       </div>
 
