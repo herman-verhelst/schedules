@@ -34,7 +34,7 @@ defineExpose({
         v-model="model"
         type="text"
         :placeholder="placeholder"
-        class="py-2 pl-1 pr-4 text-base outline-none text-grayscale-100 placeholder:text-grayscale-80 w-full h-full focus:shadow-l focus:border focus:scale-105 focus:border-grayscale-40 focus:rounded focus:bg-grayscale-0 transition"/>
+        class="px-2 h-7 text-base outline-none text-grayscale-100 placeholder:text-grayscale-80 w-full focus:shadow-l focus:border focus:border-grayscale-40 focus:rounded focus:bg-grayscale-0 transition"/>
 
   </td>
 </template>
