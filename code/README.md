@@ -1,29 +1,33 @@
-# schedules
+# Code
 
-This template should help get you started developing with Vue 3 in Vite.
+This directory contains the source code of the Visual Day Schedules web application, built
+with [Vue](https://vuejs.org/) and powered by [Vite](https://vitejs.dev/) for development and build tooling.
 
-## Recommended IDE Setup
+## Scripts
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+The following npm scripts are defined in the project:
 
-## Customize configuration
+| Command           | Description                                                                                                                    |
+|-------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| `npm run dev`     | Starts the Vite development server with hot module reloading.                                                                  |
+| `npm run build`   | Builds the production-ready version of the app.                                                                                |
+| `npm run preview` | Previews the production build locally.                                                                                         |
+| `npm run icons`   | Generates the icon library by processing SVGs located in `/tooling/icons`. The result is stored in `/public/icons/icons.json`. |
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## Icon Workflow
 
-## Project Setup
+Custom icons are a key part of the application’s visual language. Here's how to add or update icons:
 
-```sh
-npm install
-```
+1. **Add Your SVGs**  
+   Place individual SVG icon files into the `/tooling/icons/` directory. Filenames should be in kebab-case (e.g.
+   `running.svg`).
 
-### Compile and Hot-Reload for Development
+2. **Generate the Icon Library**  
+   Run the following command to build the icon metadata and copy the icons to the public folder:
+   ```bash
+   npm run icons
 
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+3. **Add alternative names**
+   Each icon has an official name and alternative names. Alternative names are used for searching and filtering. To add
+   alternative names, edit the `icons.json` file in the `/tooling/icons/` directory. Each icon object should have an
+   `alternativeNames` string with the desired names seperated by commas.
